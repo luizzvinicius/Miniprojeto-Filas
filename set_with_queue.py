@@ -74,9 +74,18 @@ class SetWithQueue(FilaArray):
         if self.is_empty():
             raise EmptyQueue()
 
+        old_queue = self.queue
+        self.queue = [None] * len(self.queue)
+
+        i = self._first
+        for j in range(self._added):
+            self.queue[j] = old_queue[i]
+            i = (i + 1) % len(old_queue)
+        self._first = 0  # reorganiza a fila
         index = self._index_of(element)
+
         if index == -1:
-            raise ElementNotFound()
+            raise ElementNotFound
 
         for i in range(index, self._added - 1):
             self.queue[i] = self.queue[i + 1]
