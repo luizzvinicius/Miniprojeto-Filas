@@ -1,17 +1,9 @@
 class FilaArray:
-    def __init__(self, queue=None):
-        if queue is None:
-            queue = [None] * 8
-            self._added = 0
-        else:
-            added = 0
-            for i in queue:
-                if i is not None:
-                    added += 1
-            self._added = added
-
+    def __init__(self):
+        CAPACIDADE_PADRAO = 8
+        self.queue = [None] * CAPACIDADE_PADRAO
         self._first = 0
-        self.queue = queue
+        self._added = 0
 
     def __len__(self):
         return self._added
