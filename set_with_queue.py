@@ -1,7 +1,7 @@
 class FilaArray:
     def __init__(self, queue=None):
         if queue is None:
-            queue = [None] * 16
+            queue = [None] * 8
             self._added = 0
         else:
             added = 0
@@ -13,11 +13,11 @@ class FilaArray:
         self._first = 0
         self.queue = queue
 
+    def __len__(self):
+        return self._added
+
     def is_empty(self):
         return self._added == 0
-
-    def is_full(self):
-        return self._added == len(self.queue)
 
     def enqueue(self, element):
         self._increase_size()
@@ -60,8 +60,6 @@ class ElementNotFound(ValueError):
 
 
 class SetWithQueue(FilaArray):
-    def __init__(self, queue=None):
-        super().__init__(queue)
 
     def size(self):
         return self._added
@@ -76,15 +74,6 @@ class SetWithQueue(FilaArray):
         if self.is_empty():
             raise EmptyQueue()
 
-        old_queue = self.queue
-        self.queue = [None] * len(self.queue)
-
-        i = self._first
-        for j in range(self._added):
-            self.queue[j] = old_queue[i]
-            i = (i + 1) % len(old_queue)
-        self._first = 0 # reorganiza a fila
-
         index = self._index_of(element)
         if index == -1:
             raise ElementNotFound()
@@ -97,30 +86,21 @@ class SetWithQueue(FilaArray):
         self._first = 0
 
     def _index_of(self, element):
-        copy = FilaArray(self.queue[:])
-        index = 0
-        while not copy.is_empty():
-            if copy.dequeue() == element:
-                return index
-            index += 1
+        for i in range(len(self.queue)):
+            j = (self._first + i) % len(self.queue)
+
+            if self.queue[j] == element:
+                return i
 
         return -1
 
     def contains(self, element):
-        index = self._index_of(element)
-        return index > -1
+        return self._index_of(element) > -1
 
     def list(self):
-        if self.is_empty():
-            return "[]"
-
-        s = "["
-        i = self._first
-        for _ in range(self._added):
-            s += f"{self.queue[i]}, "
-            i = (i + 1) % len(s)
-
-        return f"{s[:-2]}]"
+        return [
+            self.queue[(self._first + i) % len(self.queue)] for i in range(self._added)
+        ]
 
 
 lista = SetWithQueue()
