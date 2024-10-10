@@ -54,7 +54,7 @@ class EmptyQueue(Exception):
         super().__init__(mensagem)
 
 
-class ElementNotFound(Exception):
+class ElementNotFound(ValueError):
     def __init__(self, mensagem="Element not found"):
         super().__init__(mensagem)
 
@@ -87,7 +87,7 @@ class SetWithQueue(FilaArray):
 
         index = self._index_of(element)
         if index == -1:
-            raise Exception("Elemento não existe")
+            raise ElementNotFound()
 
         for i in range(index, self._added - 1):
             self.queue[i] = self.queue[i + 1]
