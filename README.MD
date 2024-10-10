@@ -1,5 +1,11 @@
 ### Análise dos métodos seguindo a notação do BIG O (pior caso):
 
+Professor, alterei o retorno dos testes para string, ou seja, no lugar de 
+assert set_queue.list() == [1, 2, 3], "Erro: Esperado [1, 2, 3]"
+ficou assim: assert set_queue.list() == "[1, 2, 3]", "Erro: Esperado [1, 2, 3]"
+
+alterei também a forma de mostrar o array de [1,2] para [1, 2]
+
 #### Add(element):
 **O(n)**: Diferentemente da fila circular, pelo fato de ter que passar por todos os elementos para verificar se o elemento a ser adicionado existe, faz com que ele deixe de ser O(1) e passe a ser O(n).
 
