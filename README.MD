@@ -1,4 +1,8 @@
-### Análise dos métodos seguindo a notação do BIG O (pior caso):
+### Análise dos métodos seguindo a notação do BIG O:
+
+### Equipe
+1.João Victor Zignago
+2.Luiz Vinícius
 
 #### Add(element):
 **O(n)**: Diferentemente da fila circular, pelo fato de ter que passar por todos os elementos para verificar se o elemento a ser adicionado existe, faz com que ele deixe de ser O(1) e passe a ser O(n).
